@@ -53,7 +53,7 @@ This function should only modify configuration layer settings."
      ;;(shell :variables
      ;;       shell-default-height 30
      ;;       shell-default-position 'bottom)
-     spell-checking
+     ;;spell-checking
      syntax-checking
      version-control
      (treemacs :variables treemacs-use-filewatch-mode t
@@ -61,6 +61,7 @@ This function should only modify configuration layer settings."
 
      ;;my layer
      chinese
+     move-text
      unicode-fonts
      eaf
      themes-megapack
@@ -427,7 +428,7 @@ It should only modify the values of Spacemacs settings."
 
    ;; Show the scroll bar while scrolling. The auto hide time can be configured
    ;; by setting this variable to a number. (default t)
-   dotspacemacs-scroll-bar-while-scrolling t
+   dotspacemacs-scroll-bar-while-scrolling nil
 
    ;; Control line numbers activation.
    ;; If set to `t', `relative' or `visual' then line numbers are enabled in all
@@ -609,7 +610,6 @@ before packages are loaded."
 
   ;;add or remove known projects
   ()
-
 
   ;;
   ;;c++ run project
