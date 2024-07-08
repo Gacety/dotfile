@@ -18,16 +18,16 @@
 ;; - `doom-symbol-font' -- for symbols
 ;; - `doom-serif-font' -- for the `fixed-pitch-serif' face
 ;; 设置默认字体为 Monaspace Krypton
-(setq doom-font (font-spec :family "Monaspace Krypton" :size 14 :weight 'regular))
+(setq doom-font (font-spec :family "Monaspace Krypton" :size 18 :weight 'regular))
 
 ;; 设置 Unicode 字符使用 Nerd Font
-(setq doom-unicode-font (font-spec :family "Nerd Font" :size 14))
+(setq doom-unicode-font (font-spec :family "Nerd Font" :size 18 ))
 
 ;; 如果需要，可变宽字体设置为 Monaspace Krypton
-(setq doom-variable-pitch-font (font-spec :family "Monaspace Krypton" :size 14))
+(setq doom-variable-pitch-font (font-spec :family "Monaspace Krypton" :size 18 ))
 
 ;; 设置大字体模式为 Monaspace Krypton
-(setq doom-big-font (font-spec :family "Monaspace Krypton" :size 20 :weight 'bold))
+(setq doom-big-font (font-spec :family "Monaspace Krypton" :size 24 :weight 'bold))
 
 
 ;; See 'C-h v doom-font' for documentation and more examples of what they
@@ -48,7 +48,7 @@
 
 ;; This determines the style of line numbers in effect. If set to `nil', line
 ;; numbers are disabled. For relative line numbers, set this to `relative'.
-(setq display-line-numbers-type t)
+(setq display-line-numbers-type 'relative)
 
 ;; If you use `org' and don't want your org files in the default location below,
 ;; change `org-directory'. It must be set before org loads!
@@ -86,3 +86,58 @@
 ;;
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
+
+;;my config
+;; avg plugin
+;; 安装 avy
+;; 安装 avy
+(use-package! avy
+  :defer t
+  :config
+  ;; 自定义 avy 命令以允许跨窗口跳转
+  (defun avy-goto-char-in-windows ()
+    "Jump to char in visible windows."
+    (interactive)
+    (let ((avy-all-windows t))
+      (avy-goto-char-timer))))
+
+  ;; 绑定自定义命令到快捷键
+  (map! :leader
+        :desc "Avy go to char in windows"
+        "j j" #'avy-goto-char-in-windows)
+
+
+;; 定义函数来执行 ff-find-other-file
+(defun my-cpp-switch-header-source ()
+  "Switch between source and header file in C++ projects."
+  (interactive)
+  (ff-find-other-file nil t))
+
+;; 设置键绑定，使用 leader m g a 调用 ff-find-other-file
+(map! :leader
+      :desc "Switch between header/source file" "m g a" #'my-cpp-switch-header-source)
+
+;;使用spce m g A 打开窗口并切换头文件源文件
+(defun switch-and-open-window ()
+  "Switch between header/source file and open in a new window."
+  (interactive)
+  (progn
+    (my-cpp-switch-header-source)
+    (evil-window-split)
+    (my-cpp-switch-header-source)))
+
+(map! :leader
+      :desc "Split and switch between header/source file"
+      "m g A" #'switch-and-open-window)
+
+
+;; 绑定 expand-region 快捷键
+(map! :leader
+      :desc "Expand region"
+      "v" #'er/expand-region)
+
+;; 设置选中区域的颜色为较深版本
+(custom-set-faces
+ '(region ((t (:background "#9766c7" :foreground unspecified)))))
+
+
