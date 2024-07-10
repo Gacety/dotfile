@@ -140,4 +140,55 @@
 (custom-set-faces
  '(region ((t (:background "#9766c7" :foreground unspecified)))))
 
+(defun my-find-closest-include ()
+  "Search for the closest #include statement and jump to it.
+First searches backward, if not found, then searches forward."
+  (interactive)
+  (let ((case-fold-search nil))  ;; Make the search case-sensitive
+    (if (re-search-backward "^#include" nil t)
+        (message "Jumped to previous #include")
+      (if (re-search-forward "^#include" nil t)
+          (message "Jumped to next #include")
+        (message "Cannot find #include")))))
 
+;; 绑定自定义函数到快捷键
+(map! :leader
+      :desc "Find closest #include"
+      "m g i" #'my-find-closest-include)
+;; 定义一键保存所有文件的函数
+(defun save-all-buffers ()
+  "Save all modified buffers."
+  (interactive)
+  (save-some-buffers t))
+
+;; 绑定自定义函数到 spc f S
+(map! :leader
+      :desc "Save all buffers" "f S" #'save-all-buffers)
+
+
+;; 绑定 delete-other-windows 到 `SPC w o`
+(map! :leader
+      :desc "Close other windows" "w 1" #'delete-other-windows)
+
+
+(map! :leader
+      :desc "format all buff" "m =" #'lsp-format-buffer)
+
+(defun my/delete-other-workspaces ()
+  "Delete all other workspaces except the current one."
+  (interactive)
+  (let ((current-workspace (persp-name (get-current-persp))))
+    (dolist (workspace (persp-names))
+      (unless (string= workspace current-workspace)
+        (persp-kill workspace)))))
+(map! :leader
+      :desc "kill-other-workspace" "TAB o" #'my/delete-other-workspaces)
+(defun shutdown-emacs-server ()
+  "Shut down the running Emacs server."
+  (interactive)
+  (when (and (fboundp 'server-running-p) (server-running-p))
+    (server-force-delete)
+    (kill-emacs)))
+
+(map! :leader
+      :desc "Shutdown Emacs server" "q Q" #'shutdown-emacs-server)
