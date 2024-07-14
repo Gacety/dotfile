@@ -192,3 +192,16 @@ First searches backward, if not found, then searches forward."
 
 (map! :leader
       :desc "Shutdown Emacs server" "q Q" #'shutdown-emacs-server)
+
+(map! :leader
+      :desc "query-replace" "s R" #'query-replace)
+
+(defun my/find-cmakelists()
+  "Find the CMakeLists.txt file in now c++ project"
+  (interactive)
+  (find-file (expand-file-name "CMakeLists.txt" (projectile-project-root))))
+
+(map! :leader
+      :desc "Find CMakeLists.txt" "m g c" #'my/find-cmakelists)
+
+
