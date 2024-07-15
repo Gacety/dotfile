@@ -1,0 +1,11 @@
+# -*- mode: snippet -*-
+# name: getset-cpp
+# key: gsc
+# --
+${1:Type} get${2:$(capitalize yas-text)}() const {
+    return ${2:PropertyName};
+}
+
+void set${2:$(capitalize yas-text)}($1 $2) {
+    this->$2 = $2;
+}

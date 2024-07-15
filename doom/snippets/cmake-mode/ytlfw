@@ -1,0 +1,25 @@
+# -*- mode: snippet -*-
+# name: ytlfw
+# key: ytlfw
+# condition: t                    
+# --
+
+
+set(${1:ModelName}_SOURCES_DIRS
+  \${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+
+file(GLOB_RECURSE $1_SOURCES_FILES
+  \${$1_SOURCES_DIRS}/*.cpp)
+
+
+add_library(${2:ModelName_l} \${$1_SOURCES_FILES})
+
+set(GAME_OBJECT_2D_INCLUDE_DIRS
+  \${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+
+
+target_include_directories($2 \${$1_INCLUDE_DIRS})

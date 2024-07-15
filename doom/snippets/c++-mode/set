@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: setc
+# key: setc                    
+# --
+
+void set${2:$(capitalize yas-text)}(${1:Type} $2) {
+    this->$2 = ${2:PropertyName};
+}

@@ -1,0 +1,8 @@
+# -*- mode: snippet -*-
+# name: getc
+# key: getc
+# --
+
+${1:Type} get${2:$(capitalize yas-text)} const {
+    return ${2:PropertyName};
+}
