@@ -205,3 +205,73 @@ First searches backward, if not found, then searches forward."
       :desc "Find CMakeLists.txt" "m g c" #'my/find-cmakelists)
 
 
+;; window
+
+;; ~/.doom.d/config.el
+
+(defun my/enlarge-window-repeatedly (n)
+  "Increase window height by a larger amount, repeating N times."
+  (interactive "p")
+  (dotimes (_ n)
+    (enlarge-window 5)))  ; Adjust the number for the desired increment
+
+(defun my/shrink-window-repeatedly (n)
+  "Decrease window height by a larger amount, repeating N times."
+  (interactive "p")
+  (dotimes (_ n)
+    (shrink-window 5)))  ; Adjust the number for the desired increment
+
+(defun my/enlarge-window-horizontally-repeatedly (n)
+  "Increase window width by a larger amount, repeating N times."
+  (interactive "p")
+  (dotimes (_ n)
+    (enlarge-window-horizontally 5)))  ; Adjust the number for the desired increment
+
+(defun my/shrink-window-horizontally-repeatedly (n)
+  "Decrease window width by a larger amount, repeating N times."
+  (interactive "p")
+  (dotimes (_ n)
+    (shrink-window-horizontally 5)))  ; Adjust the number for the desired increment
+
+;; Bind custom resizing functions to new keybindings
+(map! :leader
+      :desc "Increase window height repeatedly" "w +" #'my/enlarge-window-repeatedly
+      :desc "Decrease window height repeatedly" "w -" #'my/shrink-window-repeatedly
+      :desc "Increase window width repeatedly" "w >" #'my/enlarge-window-horizontally-repeatedly
+      :desc "Decrease window width repeatedly" "w <" #'my/shrink-window-horizontally-repeatedly)
+
+
+;;maxize window
+
+;; ~/.doom.d/config.el
+
+;; Ensure winner-mode is enabled
+(use-package winner
+  :config
+  (winner-mode 1))
+
+(defvar my/window-maximized nil
+  "Flag to indicate if the window is maximized.")
+
+(defvar my/last-buffer nil
+  "Store the buffer that was displayed before maximizing the window.")
+
+(defun my/toggle-maximize-window ()
+  "Toggle maximize and restore window."
+  (interactive)
+  (if my/window-maximized
+      (progn
+        (winner-undo)
+        (when (buffer-live-p my/last-buffer)
+          (switch-to-buffer my/last-buffer))
+        (setq my/window-maximized nil))
+    (progn
+      (setq my/last-buffer (current-buffer))
+      (winner-save-unconditionally)
+      (delete-other-windows)
+      (setq my/window-maximized t))))
+
+;; Bind the custom function to SPC w M
+(map! :leader
+      :desc "Toggle maximize window" "w M" #'my/toggle-maximize-window)
+(add-to-list 'default-frame-alist '(alpha-background . 85))

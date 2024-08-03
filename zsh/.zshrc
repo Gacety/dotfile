@@ -115,12 +115,14 @@ source ~/powerlevel10k/powerlevel10k.zsh-theme
 
 alias ec='emacsclient -c -a ""'
 alias sec='sudo emacsclient -c -a ""'
-alias em='emacs'
+alias em='emacs &'
 alias sem='sudo emacs'
-
+alias chrome-proxy='google-chrome --proxy-server="http://127.0.0.1:7890"'
 alias rm='trash-put'
+alias trm='rm'
 alias ls="exa"
 export PATH="$HOME/.config/emacs/bin:$PATH"
 export PATH="$HOME/.local/bin:$PATH"
 export PATH="$HOME/.cargo/bin:$PATH"
 export https_proxy=http://127.0.0.1:7890;export http_proxy=http://127.0.0.1:7890;export all_proxy=socks5://127.0.0.1:7890
+export PATH=$PATH:/usr/local
