@@ -275,3 +275,8 @@ First searches backward, if not found, then searches forward."
 (map! :leader
       :desc "Toggle maximize window" "w M" #'my/toggle-maximize-window)
 (add-to-list 'default-frame-alist '(alpha-background . 85))
+
+
+(after! lsp-mode
+  (setq lsp-completion-provider :capf)
+  )

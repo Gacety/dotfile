@@ -25,7 +25,6 @@ local config = {
   -- color_scheme = "Duotone Dark",
   -- color_scheme = "Sakura",
   -- color_scheme = "lovelace",
-
   enable_scroll_bar = true, 
   exit_behavior = "Close",
 
@@ -36,7 +35,9 @@ local config = {
   },
   font = wezterm.font_with_fallback({
     "Monaspace krypton",
+    "Hack Nerd Font",
     "FiraCode Nerd Font",
+    "FantasqueSansMono Nerd Font",
     "Noto Sans Symbols",
     "Noto Sans Symbols 2",
   }),
