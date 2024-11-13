@@ -202,7 +202,18 @@ First searches backward, if not found, then searches forward."
   (find-file (expand-file-name "CMakeLists.txt" (projectile-project-root))))
 
 (map! :leader
-      :desc "Find CMakeLists.txt" "m g c" #'my/find-cmakelists)
+      :desc "Find Root CMakeLists.txt" "m g C" #'my/find-cmakelists)
+(defun my/find-current-cmakelists ()
+  "Find the CMakeLists.txt file in the current file's directory."
+  (interactive)
+  (let ((cmake-file (expand-file-name "CMakeLists.txt" (file-name-directory buffer-file-name))))
+    (if (file-exists-p cmake-file)
+        (find-file cmake-file)
+      (message "No CMakeLists.txt found in the current directory."))))
+
+(map! :leader
+      :desc "Find Current CMakeLists.txt" "m g c" #'my/find-current-cmakelists)
+
 
 
 ;; window
@@ -275,8 +286,3 @@ First searches backward, if not found, then searches forward."
 (map! :leader
       :desc "Toggle maximize window" "w M" #'my/toggle-maximize-window)
 (add-to-list 'default-frame-alist '(alpha-background . 85))
-
-
-(after! lsp-mode
-  (setq lsp-completion-provider :capf)
-  )
